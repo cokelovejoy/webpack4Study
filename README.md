@@ -93,8 +93,13 @@ speed 测试  4 mins, 28.025 secs;
 5. 已经使用的优化手段
 了解vue-loader-plugin做的工作：资源解析，优化设置
 
+
+
 splitChunks 分割代码
 terser-plugin
 dll-plugin
 
+6. vue-cli 已经做了的缓存和并行处理
+- cache-loader 会默认为 Vue/Babel/TypeScript 编译开启。文件会缓存在 node_modules/.cache 中。
+- thread-loader 会在多核 CPU 的机器上为 Babel/TypeScript 转译开启。
 
