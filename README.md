@@ -95,7 +95,12 @@ speed 测试  4 mins, 28.025 secs;
 
 
 
-splitChunks 分割代码
+splitChunks 分割代码 
+1.chunks：all 表示异步引入和同步引用的包都提取成单独的包，async 默认值，表示异步引用的包提取成单独的包，initial 表示将入口点中同步引入的模块、模块中引入的模块进行拆解并单独打包。
+2.多次引用的共享的代码要分包分出来，
+3.node_modules中的代码要分包分出来 好处：将通用的库的代码改动很少，与应用程序的代码分离，这样有利于浏览器缓存。
+4.体积小于30kb的不分出来。
+
 terser-plugin
 dll-plugin
 
