@@ -73,3 +73,28 @@ webpack4 study
 # webpack原理
 ## webpack启动过程
 ## webpack-cli源码
+
+## ctos项目打包优化记录
+1. 问题
+打包构建速度慢:  构建时间 7.25 m
+打包输出包体积大: 打包出来总体积15.5MB ， 入口文件 2.57MB
+
+2. 分析方法
+vue-cli 使用vue-cli-service build --report，添加report参数后会输出由webpack-bundle-analyze-plugin生成的reportl.html在dist目录下
+
+3. 先提升构建速度
+
+4. 分析 
+通过vue inspect > output.js 分析使用的loader， plugin，和使用的优化方案
+通过分析 report.html 决定哪些包过于大 ，再进行处理
+通过speed-measure-webpack-plugin分析构建时间，分析loader处理时间，plugin处理时间
+speed 测试  4 mins, 28.025 secs;
+
+5. 已经使用的优化手段
+了解vue-loader-plugin做的工作：资源解析，优化设置
+
+splitChunks 分割代码
+terser-plugin
+dll-plugin
+
+
