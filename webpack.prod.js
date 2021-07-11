@@ -25,7 +25,7 @@ const setMPA = () => {
       new HtmlWebpackPlugin({
         inlineSource: ".css$",
         template: path.join(__dirname, `src/${pageName}/index.html`), // 模板html
-        filename: `${pageName}.html`,     // 输出html
+        filename: `${pageName}.html`, // 输出html
         chunks: ["vendors", "commons", pageName], // ! vendors 为当前这个页面需要引入的公共包名 对应了splitChunk 提取的公共包名
         inject: true,
         minify: {
@@ -41,10 +41,10 @@ const setMPA = () => {
   });
   return {
     entry,
-    htmlWebpackPlugins
-  }
+    htmlWebpackPlugins,
+  };
 };
-const {entry, htmlWebpackPlugins} = setMPA();
+const { entry, htmlWebpackPlugins } = setMPA();
 module.exports = {
   entry: entry, // 打包入口文件， 多页面
   output: {
@@ -136,7 +136,7 @@ module.exports = {
     //     },
     //   ],
     // }),
-    
+    new FriendlyErrorsWebpackPlugin(),
   ].concat(htmlWebpackPlugins),
   //splitChunks插件作用提取公共代码，防止代码被重复打包，拆分过大的js文件，合并零散的js文件。
   // chunks: 决定提取哪些模块
@@ -150,21 +150,22 @@ module.exports = {
   //       commons: {
   //        test: /(react|react-dom)/,  // 匹配 react react-dom 提取出来，作为公共包
   //        name: 'vendors',            // 打包出来的文件名
-  //        chunks: 'all',                
+  //        chunks: 'all',
   //       }
   //     }
   //   }
   // }
   optimization: {
     splitChunks: {
-      minSize: 0,                    // 满足打包的条件：打包只要引用就提取出来打包成一个chunk
+      minSize: 0, // 生成包的最小体积，默认为 最小30kb，小于30kb不打包，设置为0 ，则只要引用就要打包
       cacheGroups: {
         commons: {
-         name: 'commons',            // 打包出来的文件名, 这个名字需要配置到htmlwebpackplugin的chunks中，才会被引入到html中
-         chunks: 'all', 
-         minChunks: 2,               // 打包条件引用2次以上就打包，否则不打包
-        }
-      }
-    }
-  }
+          name: "commons", // 打包出来的文件名, 这个名字需要配置到htmlwebpackplugin的chunks中，才会被引入到html中
+          chunks: "all",
+          minChunks: 2, // 打包条件引用2次以上就打包，否则不打包
+        },
+      },
+    },
+  },
+  stats: "errors-only", // 只有出错时才显示日志
 };
